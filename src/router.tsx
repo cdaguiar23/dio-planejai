@@ -1,7 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
-import { Button } from  './components/shared/Button'
-import { PiggyBank } from 'lucide-react'
 import { RootLayout } from './components/layout/RootLayout'
+import { SimulationFormPage } from './components/pages/SimulationFormPage'
 
 export const router = createBrowserRouter([
     {
@@ -11,7 +10,7 @@ export const router = createBrowserRouter([
                 path: '/',
                 element: (
                     <>
-                        <h1>Formulário de Simulação</h1>
+                        <SimulationFormPage />
                     </>
                 )
             },

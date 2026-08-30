@@ -2,7 +2,8 @@ import { ArrowLeft, ArrowRight, type LucideIcon } from "lucide-react";
 import { Input, type InputProps } from "../../shared/Input";
 import { Button } from "../../shared/Button";
 
-interface FormeStepProps {
+export interface FormeStepProps {
+    id: string
     icon: LucideIcon
     title: string
     question: string
@@ -32,7 +33,7 @@ export function FormSteps({icon: Icon, title, question, inputProps, submitButton
                         Voltar
                     </Button>
                     <Button type="submit" variant="primary" icon={!submitButtonProps ? ArrowRight : undefined} className="order-1 flex-1 sm:order-2">
-                        {submitButtonProps?.label ?? 'Prtóximo'}
+                        {submitButtonProps?.label ?? 'Próximo'}
                         {submitButtonProps?.emojiIcon}
                     </Button>
                 </div>

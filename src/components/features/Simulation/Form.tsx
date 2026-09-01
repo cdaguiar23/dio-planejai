@@ -1,16 +1,36 @@
 import { FormSteps } from "./FormStep"
 import { StepProgress } from "./Progress"
-import { simulationFormSteps } from "../../data/simulation"
+import { type SimulationFormData, simulationFormSteps } from "../../data/simulation"
+import { useSimulationStorage } from "../../../hooks/useSimulationStorage"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 export const SimulationForm = () => {
+
+     const { saveFormData } = useSimulationStorage()
+     const navigate = useNavigate()
 
     const [currentStepIndex, setCurrentStepIndex] = useState(0)
     const totalSteps = simulationFormSteps.length
     const currentStep = simulationFormSteps[currentStepIndex]
 
-    const handleNextStep = () => {
+    const [formData, setFormData] = useState<SimulationFormData>({} as SimulationFormData)
+
+    const handleNextStep = (value: string) => {
+
+        const updatedFormData = {
+            ...formData,
+            [currentStep.id]: value
+        }
+
+        setFormData(updatedFormData)
+
+        console.log(updatedFormData);
+        
+
         if (currentStepIndex + 1  > totalSteps - 1) {
+            saveFormData(formData)
+            void navigate('/resultado')
             return
         }
 

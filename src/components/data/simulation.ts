@@ -75,4 +75,7 @@ export const simulationFormSteps: FormeStepProps[] = [
         }
     },
     
-]
+] satisfies FormeStepProps[]
+
+export type SimulationFormData = Record<(typeof simulationFormSteps)[number]['id'], string>
+

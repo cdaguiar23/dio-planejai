@@ -1,7 +1,7 @@
 import { CalendarClock, CreditCard, Goal, Landmark, PiggyBank, Wallet } from "lucide-react";
 import type { FormeStepProps } from "../features/Simulation/FormStep";
 
-export const simulationFormSteps: FormeStepProps[] = [
+export const simulationFormSteps = [
     {
         id: 'icome',
         icon: PiggyBank,
@@ -71,7 +71,7 @@ export const simulationFormSteps: FormeStepProps[] = [
         },
         submitButtonProps: {
             label: 'Gerar simulação',
-            emojiIcon: 'star',
+            emojiIcon: '✨',
         }
     },
     

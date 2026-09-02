@@ -24,7 +24,7 @@ export function SimulationResultsPages() {
                 <div className="mb-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
                     <Card icon={Goal} label="Custo da meta" value={data.goalAmount} subtitle={data.goalName} />
                     <Card icon={CalendarClock} label="Prazo" value={`${data.goalDeadline} meses`} subtitle={'Prazo para atingir a meta'} />
-                    <Card icon={PiggyBank} label="Economia mensal" value={`R$ ${monthlySavings.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`} subtitle={'Economia mensal necessária'} />
+                    <Card icon={PiggyBank} label="Economia mensal" value={`R$ ${monthlySavings.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`} subtitle={'Economia mensal necessária'} variant="primary" />
                 </div>
                 <div className="grid gap-6 lg:grid-cols-3">
                     <div className="bg-card order-2 rounded-2xl p-6 shadow-[4px_4px_18px_0px_rgba(0, 0, 0, 0.2)] lg:order-1 lg:col-span-2">

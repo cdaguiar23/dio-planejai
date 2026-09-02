@@ -27,7 +27,7 @@ export function Card({ icon: Icon, label, value, subtitle, variant = 'default' }
     const styles = variantClasses[variant]
 
     return (
-        <div className={['rouded-2xl p-6 shadow-[4px_4px_18px_0px_rgba(0, 0, 0, 0.2)]', styles.card].join(' ')}>
+        <div className={['rounded-2xl p-6 shadow-[4px_4px_18px_0px_rgba(0, 0, 0, 0.2)]', styles.card].join(' ')}>
         <div className="mb-3 flex items-center gap-2">
                 <Icon size={16} className={styles.accent} />
                 <span className={['text-xs font-semibold tracking-widest uppercase', styles.accent].join(' ')}>

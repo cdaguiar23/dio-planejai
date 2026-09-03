@@ -3,7 +3,7 @@ import type { FormeStepProps } from "../features/Simulation/FormStep";
 
 export const simulationFormSteps = [
     {
-        id: 'icome',
+        id: 'income',
         icon: PiggyBank,
         title: 'Renda mensal bruta',
         question: 'Quanto é depositado na sua conta todo mês (somando todas as fontes)?',
@@ -65,7 +65,6 @@ export const simulationFormSteps = [
             type: 'number',
             placeholder: 'ex:12',
             suffix: 'meses',
-            prefix: 'R$',
             min: 1, 
             max: 120,
         },

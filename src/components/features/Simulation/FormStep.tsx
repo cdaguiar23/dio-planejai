@@ -48,7 +48,7 @@ export function FormSteps({icon: Icon, title, question, inputProps, submitButton
                 {question}
             </h3>
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                <Input {...inputProps} value={inputValue} onChange={(e) => setInputValue(inputProps.prefix === 'R$ ' ? formatCurrencyMask(e.target.value) : e.target.value)} />
+                <Input {...inputProps} value={inputValue} onChange={(e) => setInputValue(inputProps.prefix?.includes('R$') ? formatCurrencyMask(e.target.value) : e.target.value)} />
                 <div className="flex flex-col gap-3 sm:flex-row sm:gap-6">
                     {!hideBackButton && (
                         <Button type="button" onClick={onBack} variant="ghost" icon={ArrowLeft} className="order-2 flex-l justify-center rounded-xl py-3 sm:order-l">

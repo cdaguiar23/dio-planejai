@@ -22,7 +22,7 @@ const RESPONSE_SCHEMA = `{
     "motivation": {
         "content": "<Mensagem final motivacional e personalizada, citando a meta pelo nome.>"
     }
-}
+}`
 
 export function buildAIPrompt(simulation: SimulationRecord) {
 

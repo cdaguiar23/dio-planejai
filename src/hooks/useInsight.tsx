@@ -4,6 +4,7 @@ import { useSimulationStorage } from "./useSimulationStorage"
 import { buildAIPrompt } from "../components/data/aiPrompts"
 
 export const useInsight = (id: string) => {
+    const[isRequestPending] = useRef(false)
     const [insight, setInsight] = useState<InsightData | null>(null)
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
@@ -19,6 +20,7 @@ export const useInsight = (id: string) => {
             return
         }
 
+        isRequestPending.current = true
         setIsLoading(true)
         setError(null)
 
@@ -29,13 +31,14 @@ export const useInsight = (id: string) => {
         } catch (err) {
             setError('Erro ao gerar o diagnóstico. tente novamente')
         } finally {
+            isRequestPending.current = false
             setIsLoading(false)
         }
     }, [getFormData])
 
     useEffect(() => {
         // Evita loop infinito de requisições para a API do Gemini
-        if (insight || isLoading || error) {
+        if (insight || isLoading || error || isRequestPending.current) {
             return 
         }
 

@@ -1,17 +1,17 @@
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useState, useRef } from "react"
 import { getInsight, type InsightData } from "../services/aiService"
 import { useSimulationStorage } from "./useSimulationStorage"
 import { buildAIPrompt } from "../components/data/aiPrompts"
 
 export const useInsight = (id: string) => {
-    const[isRequestPending] = useRef(false)
+    const isRequestPending = useRef(false)
     const [insight, setInsight] = useState<InsightData | null>(null)
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
 
     const { getFormData } = useSimulationStorage()
 
-    // Necessáio o uso do useCallback pois temso que colocar essa função como array de depeendẽncias do useEffect
+    // Necessário o uso do useCallback pois temos que colocar essa função como array de depeendẽncias do useEffect
     const fetchInsight = useCallback(async (simulationId: string) => {
         const simulation = getFormData(simulationId)
 

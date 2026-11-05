@@ -1,7 +1,7 @@
 interface GeminiRespobse {
     candidates: {
         content: {
-            parts: {text: string}
+            parts: {text: string}[]
         }
     }[]
 }

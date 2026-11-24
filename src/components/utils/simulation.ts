@@ -1,10 +1,13 @@
 import type { SimulationFormData } from "../data/simulation";
 import { parseCurrency } from "./currency";
 
+type SimulationFormDataWithLegacy = SimulationFormData & { icome?: string }
+
 export function calcMonthlySavings(data: SimulationFormData) {
     // Backwards-compatibility: some saved records used the typo 'icome'
-    const incomeValue = (data as any).income ?? (data as any).icome ?? ''
+    const { income, icome, expenses, debts } = data as SimulationFormDataWithLegacy
+    const incomeValue = income ?? icome ?? ''
     return (
-        parseCurrency(incomeValue) - parseCurrency((data as any).expenses) - parseCurrency((data as any).debts)
+        parseCurrency(incomeValue) - parseCurrency(expenses) - parseCurrency(debts)
     )
 }

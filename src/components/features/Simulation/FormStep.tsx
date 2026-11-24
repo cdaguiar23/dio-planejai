@@ -37,7 +37,7 @@ export function FormSteps({icon: Icon, title, question, inputProps, submitButton
     }
 
     return (
-        <div className="bg-card rounded-2xl p-6 shadow-[4px_4px_18px_0px_rgba(0, 0, 0, 0,2)] sm:p-8">
+        <div className="bg-card rounded-2xl p-6 shadow-[4px_4px_18px_0px_rgba(0,0,0,0.2)] sm:p-8">
             <div className="bp-primary mb-4 flex h-15 w-15 items-center justify-center rounded-xl">
                 <Icon size={32} className="text-primary-foreground" />
             </div>

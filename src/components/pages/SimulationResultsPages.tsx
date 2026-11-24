@@ -13,7 +13,7 @@ export function SimulationResultsPages() {
 
     const data = id ? getFormData(id) : null
 
-    if (!data) {
+    if (!id || !data) {
         return <p>Simulação não encontrada.</p>
     }
 
@@ -29,8 +29,8 @@ export function SimulationResultsPages() {
                 </div>
                 <div className="grid gap-6 lg:grid-cols-3">
                     <AIInsightCard simulationID={id} />
-                    <div className="order-1 flex-col gap-6 lg_order-2">
-                        <Card icon={Wallet} label="Renda mensal" value={data.income} subtitle={'Renda total burta por mês'} />
+                    <div className="order-1 flex flex-col gap-6 lg:order-2">
+                        <Card icon={Wallet} label="Renda mensal" value={data.income} subtitle={'Renda total bruta por mês'} />
                         <Card icon={CreditCardIcon} label="Custos fixos de vida" value={data.expenses} subtitle={'Gastos essenciais por mês'} />
                         <Card icon={Landmark} label="Dívidas / Parcelas" value={data.debts} subtitle={'Valor comprometido em parcelas/depósito'} />
                     </div>

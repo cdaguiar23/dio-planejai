@@ -4,20 +4,20 @@ import type { SimulationRecord } from "./simulation";
 
 const RESPONSE_SCHEMA = `{
     "feasibility": {
-        "status": "viable" | "needs_adjustement" | "unfeseable",
-        "content": "<Análise objetiva se a meta é atingível no prazo com o valor disponível. mencione os números relevantes.>",
+        "status": "viable" | "needs_adjustment" | "unfeasible",
+        "content": "<Análise objetiva se a meta é atingível no prazo com o valor disponível. mencione os números relevantes.>"
     },
     "diagnosis": {
-        "contewnt": "<Diagnóstico focado no comprometimento do orçamento: quanto % das renda está comprometida com gastos e dívidas>"
+        "content": "<Diagnóstico focado no comprometimento do orçamento: quanto % da renda está comprometida com gastos e dívidas>"
     },
     "suggestions": {
-        "items": ["<Sugestão prática e concreta para reduzor gastos ou reorganizar o orçamento>"]
+        "items": ["<Sugestão prática e concreta para reduzir gastos ou reorganizar o orçamento>"]
     },
     "extraIncome": {
-        "items": ["<Idéia prática para gerar renda extra compatível com a realidade brasileira>"]
+        "items": ["<Ideia prática para gerar renda extra compatível com a realidade brasileira>"]
     },
     "investiment": {
-        "items:" ["<Sugestão de investimento acessível para o perfil apresentado, com foco em atingir a meta>"]
+        "items": ["<Sugestão de investimento acessível para o perfil apresentado, com foco em atingir a meta>"]
     },
     "motivation": {
         "content": "<Mensagem final motivacional e personalizada, citando a meta pelo nome.>"
@@ -29,7 +29,8 @@ export function buildAIPrompt(simulation: SimulationRecord) {
     const {income, expenses, debts, goalName, goalAmount, goalDeadline} = simulation
 
     const monthlySavings = calcMonthlySavings(simulation)
-    const monthlySavingsNeeded = parseCurrency(goalAmount) / parseCurrency(goalDeadline)
+    const deadlineMonths = Number(goalDeadline) || 1
+    const monthlySavingsNeeded = parseCurrency(goalAmount) / deadlineMonths
 
     return `Você é um educador financiero em finanças pessoais.
         Analise os dados baixo e gere um diagnóstico financeiro personalizado com linguagem clara, didática e encorajadora,
@@ -59,7 +60,7 @@ export function buildAIPrompt(simulation: SimulationRecord) {
         - Nunca use markdown dentro dos valores de JSON
         - Para o campo "feasibility.status" use os seguintes critérios:
             - "viable": saldo após reserva para a meta é maior ou igual a 0
-            - "needs_adjustement": saldo negativo de até 20% do valor da economia mensal necessária
-            - "unfeseable": saldo negativo superior a 20% do vlaor da economia mensal necessária
+            - "needs_adjustment": saldo negativo de até 20% do valor da economia mensal necessária
+            - "unfeasible": saldo negativo superior a 20% do valor da economia mensal necessária
         `
 }

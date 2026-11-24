@@ -28,12 +28,19 @@ export interface InsightData {
     }
 }
 
-const API_KEY = String(import.meta.env.VITE_GEMINI_API_KEY)
+const API_KEY = import.meta.env.VITE_GEMINI_API_KEY as string | undefined
 const MODEL_NAME = 'gemini-flash-latest'
-const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${API_KEY}`
 
 const callGeminiAPI = async (prompt: string) => {
-    const response = await fetch(GEMINI_API_URL, {
+    if (!API_KEY || API_KEY === 'sua_chave_aqui') {
+        throw new Error(
+            'VITE_GEMINI_API_KEY não configurada. Crie um arquivo .env com uma chave válida do Google AI Studio.',
+        )
+    }
+
+    const geminiApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${API_KEY}`
+
+    const response = await fetch(geminiApiUrl, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -44,7 +51,22 @@ const callGeminiAPI = async (prompt: string) => {
     })
 
     if (!response.ok) {
-        throw new Error(`Erro na requisição: ${response.status}`)
+        const body = await response.json().catch(() => null)
+        const apiMessage = body?.error?.message as string | undefined
+
+        if (response.status === 402 || body?.error?.status === 'RESOURCE_EXHAUSTED') {
+            throw new Error(
+                'Créditos da API Gemini esgotados. Adicione créditos ou ative o faturamento em https://ai.studio/projects',
+            )
+        }
+
+        if (response.status === 400 && body?.error?.status === 'INVALID_ARGUMENT') {
+            throw new Error(
+                'Chave da API Gemini inválida. Verifique VITE_GEMINI_API_KEY no arquivo .env',
+            )
+        }
+
+        throw new Error(apiMessage || `Erro na requisição: ${response.status}`)
     }
 
     return (await response.json()) as GeminiResponse

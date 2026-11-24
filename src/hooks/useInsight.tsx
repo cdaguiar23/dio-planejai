@@ -28,8 +28,10 @@ export const useInsight = (id: string) => {
             const prompt = buildAIPrompt(simulation)
             const data = await getInsight(prompt)
             setInsight(data)
-        } catch {
-            setError('Erro ao gerar o diagnóstico. tente novamente')
+        } catch (err) {
+            const message =
+                err instanceof Error ? err.message : 'Erro ao gerar o diagnóstico. tente novamente'
+            setError(message)
         } finally {
             isRequestPending.current = false
             setIsLoading(false)
